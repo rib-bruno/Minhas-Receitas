@@ -14,4 +14,5 @@ interface RecipeDao {
 
     @Insert
     fun insert(recipe: RecipeEntity)
+
 }
