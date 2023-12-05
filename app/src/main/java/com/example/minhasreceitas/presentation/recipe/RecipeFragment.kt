@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.minhasreceitas.R
 import com.example.minhasreceitas.databinding.FragmentFirstBinding
+import com.example.minhasreceitas.presentation.recipe.adapter.RecipeAdapter
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -15,6 +16,8 @@ import com.example.minhasreceitas.databinding.FragmentFirstBinding
 class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding
+    //adapter pra fazer listagem dos itens
+    private val adapter by lazy { RecipeAdapter () }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,19 +26,23 @@ class RecipeFragment : Fragment() {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
+        setupAdapter()
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    }
+
+    fun setupListeners(){
+        binding.fabRecipe.setOnClickListener {
+            //TODO show dialog
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    fun setupAdapter() {
+       binding.rvRecipes.adapter = adapter
     }
+
 }
