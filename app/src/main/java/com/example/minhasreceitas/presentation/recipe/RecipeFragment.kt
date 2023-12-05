@@ -14,18 +14,14 @@ import com.example.minhasreceitas.databinding.FragmentFirstBinding
  */
 class RecipeFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentFirstBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
     }
