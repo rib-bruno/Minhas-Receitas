@@ -1,16 +1,18 @@
 package com.example.minhasreceitas.presentation.recipe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.minhasreceitas.R
 import com.example.minhasreceitas.databinding.FragmentFirstBinding
+import com.example.minhasreceitas.presentation.dialog.DialogEditTextFragment
 import com.example.minhasreceitas.presentation.recipe.adapter.RecipeAdapter
 
 /**
@@ -46,7 +48,15 @@ class RecipeFragment : Fragment() {
 
     fun setupListeners(){
         binding.fabRecipe.setOnClickListener {
-            //TODO show dialog
+            showDialog()
+        }
+        //definir os valores no fragment recebidos pelo dialog
+        //ficar escutando o listenner que a gente colocou no click do botão
+        setFragmentResultListener(DialogEditTextFragment.FRAGMENT_RESULT) { requestKey, bundle ->
+            val nomeRecipe = bundle.getString(DialogEditTextFragment.EDIT_TEXT_VALUE) ?: ""
+            //trazer o nome e inserir no banco de dados
+            viewModel.insert(nomeRecipe)
+            
         }
     }
 
@@ -87,6 +97,14 @@ class RecipeFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun showDialog() {
+        DialogEditTextFragment.show(
+            title = getString(R.string.title_new_recipe),
+            placeHolder = getString(R.string.label_name_recipe),
+            fragmentManager = parentFragmentManager
+        )
     }
 
 }

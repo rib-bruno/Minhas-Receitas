@@ -43,5 +43,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
     <string name="label_empty_recipes">Ops, não temos nenhuma receita!</string>
+    <string name="label_name_recipe">Nome da receita</string>
+
+    <string name="title_new_recipe">Nova Receita</string>
+
+
 </resources>
