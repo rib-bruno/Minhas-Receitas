@@ -48,6 +48,8 @@
     <string name="label_name_recipe">Nome da receita</string>
 
     <string name="title_new_recipe">Nova Receita</string>
+    <string name="label_ingredients">Ingredientes</string>
+    <string name="label_prepare_mode">Modo de Preparo</string>
 
 
 </resources>
