@@ -5,6 +5,7 @@ import com.example.minhasreceitas.domain.model.PrepareModeDomain
 import com.example.minhasreceitas.presentation.model.ItemListModel
 
 
+
 fun IngredientDomain.toModel() = ItemListModel(
     id = id,
     name = name

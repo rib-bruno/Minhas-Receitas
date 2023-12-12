@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.minhasreceitas.R
 import com.example.minhasreceitas.databinding.FragmentSecondBinding
 
@@ -15,6 +16,8 @@ import com.example.minhasreceitas.databinding.FragmentSecondBinding
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
+
+    private val args by navArgs<SecondFragment>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.

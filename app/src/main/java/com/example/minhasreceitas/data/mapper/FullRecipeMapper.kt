@@ -6,7 +6,7 @@ import com.example.minhasreceitas.domain.model.IngredientDomain
 
 fun FullRecipeEntity.toDomain() = FullRecipeDomain(
     recipe = recipe.toDomain(),
-    ingredients = ingredients.map {
+    ingredients = ingredient.map {
         IngredientDomain(
             id = it.id,
             name = it.name,

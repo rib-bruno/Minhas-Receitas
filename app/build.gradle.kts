@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -68,6 +68,12 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    val nav_version = "2.5.3"
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
 
 
 
