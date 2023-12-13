@@ -17,7 +17,7 @@ class DetailFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
 
-    private val args by navArgs<SecondFragment>()
+    private val args by navArgs<DetailFragment>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
