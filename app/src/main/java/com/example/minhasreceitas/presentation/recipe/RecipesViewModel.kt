@@ -56,7 +56,7 @@ class RecipesViewModel(
 
     //informar um texto e a partir dele gravar no banco
     fun insert(name: String) = viewModelScope.launch {
-        insertRecipesUseCase(RecipeDomain(name = name))
+        insertRecipesUseCase(RecipeDomain(name = name, prepareTime = "45 min"))
     }
     class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(

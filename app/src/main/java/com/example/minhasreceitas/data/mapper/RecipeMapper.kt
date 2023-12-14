@@ -5,10 +5,12 @@ import com.example.minhasreceitas.domain.model.RecipeDomain
 
 fun RecipeDomain.toEntity() = RecipeEntity(
     id = id,
-    name = name
+    name = name,
+    prepareTime = prepareTime
 )
 
 fun RecipeEntity.toDomain() = RecipeDomain(
     id = id,
-    name = name
+    name = name,
+    prepareTime = prepareTime
 )
