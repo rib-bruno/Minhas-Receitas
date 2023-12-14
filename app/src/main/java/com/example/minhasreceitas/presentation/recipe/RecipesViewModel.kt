@@ -13,6 +13,13 @@ import com.example.minhasreceitas.data.repository.RecipeRepositoryImpl
 import com.example.minhasreceitas.domain.model.RecipeDomain
 import com.example.minhasreceitas.domain.use_case.GetAllRecipesUseCase
 import com.example.minhasreceitas.domain.use_case.InsertRecipeUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class RecipesViewModel(
@@ -20,25 +27,31 @@ class RecipesViewModel(
     private val insertRecipesUseCase: InsertRecipeUseCase
 ) : ViewModel() {
 
-    val state : LiveData<RecipeState> = liveData {
-        //emitir os eventos pra view
-        emit(RecipeState.Loading)
+   private val _state = MutableSharedFlow<RecipeState>()
+    val state : SharedFlow<RecipeState> = _state
 
-        val state = try {
-            //tentar recuperar as receitas
-            val recipes = getAllRecipesUseCase()
-            if (recipes.isEmpty()) {
-                RecipeState.Empty
-            } else {
-                RecipeState.Success(recipes)
+    init {
+        getAllRecipes()
+    }
+
+    //pegar as chamadas do flow
+    private fun getAllRecipes() = viewModelScope.launch {
+        getAllRecipesUseCase()
+            //despachado na main
+            .flowOn(Dispatchers.Main)
+            //quando o fluxo iniciar
+            .onStart {
+                _state.emit(RecipeState.Loading)
+            }.catch {
+                _state.emit(RecipeState.Error("erro"))
+            }.collect{recipes ->
+                if (recipes.isEmpty()) {
+                    _state.emit(RecipeState.Empty)
+                } else {
+                    _state.emit(RecipeState.Success(recipes))
+                }
+
             }
-
-
-        } catch (exception: Exception) {
-            Log.e("Error", exception.message.toString())
-            RecipeState.Error(exception.message.toString())
-        }
-        emit(state)
     }
 
     //informar um texto e a partir dele gravar no banco

@@ -10,10 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.minhasreceitas.R
 import com.example.minhasreceitas.databinding.FragmentFirstBinding
 import com.example.minhasreceitas.presentation.dialog.DialogEditTextFragment
 import com.example.minhasreceitas.presentation.recipe.adapter.RecipeAdapter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -107,4 +114,11 @@ class RecipeFragment : Fragment() {
         )
     }
 
+    fun <T> Flow<T>.observe(owner: LifecycleOwner, observe: (T) -> Unit) {
+        owner.lifecycleScope.launch {
+            owner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                this@observe.collect(observe)
+            }
+        }
+    }
 }
